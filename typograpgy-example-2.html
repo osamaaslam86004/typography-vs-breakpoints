@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typography Measure</title>
+    <style>
+      /*
+       * Styles for the body, container, paragraphs, and display elements.
+       */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 70ch; /* Optimal measure: max 70 characters */
+        padding: clamp(1rem, -1.561rem + 7.127vw, 3rem); /* Responsive padding*/
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      p {
+        font-size: clamp(1rem, 0.36rem + 1.782vw, 1.5rem); /* Responsive font size */
+        line-height: 1.6; /* Comfortable line spacing */
+        margin-bottom: 1rem;
+      }
+
+      .font-size-display,
+      .padding-display {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="font-size-display" id="font-size-display"></div>
+      <div class="padding-display" id="padding-display"></div>
+
+      <p style="color: blue">
+        <b>The entire text will scale between 1rem at 575px and 1.5rem at 1024px</b>
+      </p>
+      <p>
+        This paragraph demonstrates maintaining a consistent measure. For optimal readability,
+        line lengths are limited to 70 characters. The font size and container padding adjust
+        responsively with the viewport width.
+      </p>
+      <p>
+        Resize the browser window to observe the dynamic adjustments while keeping the text
+        within a readable range.
+      </p>
+    </div>
+
+    <script>
+      /**
+       * Updates the font size of the paragraph element and displays it.
+       *
+       * @returns {void}
+       */
+      function updateFontSize() {
+        const paragraph = document.querySelector("p");
+        const computedStyle = window.getComputedStyle(paragraph);
+        const fontSize = computedStyle.fontSize;
+
+        document.getElementById(
+          "font-size-display"
+        ).innerHTML = `<p>Current font size of p-tag: ${fontSize}</p>`;
+      }
+
+      /**
+       * Updates the padding of the container element and displays it.
+       *
+       * @returns {void}
+       */
+      function updatePadding() {
+        const container = document.querySelector(".container");
+        const computedStyle = window.getComputedStyle(container);
+        const padding = computedStyle.padding; // Get computed padding
+
+        document.getElementById(
+          "padding-display"
+        ).innerHTML = `<p><b>Current padding of .container: ${padding}</b></p>`;
+      }
+
+      // Update font size and padding on load and on resize
+      window.addEventListener("load", () => {
+        updateFontSize();
+        updatePadding();
+      });
+      window.addEventListener("resize", () => {
+        updateFontSize();
+        updatePadding();
+      });
+    </script>
+  </body>
+</html>

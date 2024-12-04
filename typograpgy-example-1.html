@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Text with clamp()</title>
+    <style>
+      /* General Reset */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        height: 100vh;
+        background-color: #f4f4f9;
+      }
+
+      .responsive-text {
+        text-align: center;
+        color: #333;
+      }
+
+      h1 {
+        font-size: clamp(1rem, 0rem + 5vw, 4rem);
+        margin: 0.5rem 0;
+        border: 1px solid green;
+      }
+
+      p,
+      a {
+        font-size: clamp(1rem, 0.833rem + 0.833vw, 1.5rem);
+        margin: 0.5rem 0;
+        border: 1px solid black;
+        /* max-height: fit-content; */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="responsive-text">
+      <a href="https://www.marcbacon.com/tools/clamp-calculator/" target="_blank">
+        https://www.marcbacon.com/tools/clamp-calculator/
+      </a>
+      <h1>Responsive Text Example</h1>
+      <p>
+        This text and Link will scale between 1rem at 325px and 1.5rem at 1280px. <br />This
+        &lt;h1&gt;-tag will scale between 1rem at 325px and 4rem at 1280px.
+      </p>
+      <p>Resize the browser window to see the effect in action!</p>
+    </div>
+    <div>
+      <div class="font-size-display" id="font-size-display"></div>
+      <div class="link-size-display" id="link-size-display"></div>
+      <div class="h1-size-display" id="h1-size-display"></div>
+    </div>
+    <script>
+      /**
+       * Updates the font size of the paragraph element and displays it.
+       *
+       * @returns {void}
+       */
+      function updateFontSize() {
+        const paragraph = document.querySelector("p");
+        const computedStyle = window.getComputedStyle(paragraph);
+        const fontSize = computedStyle.fontSize;
+
+        const link = document.querySelector("a");
+        const linkcomputedStyle = window.getComputedStyle(link);
+        const linkfontSize = linkcomputedStyle.fontSize;
+
+        const h1 = document.querySelector("h1");
+        const h1computedStyle = window.getComputedStyle(h1);
+        const h1fontSize = h1computedStyle.fontSize;
+
+        document.getElementById(
+          "link-size-display"
+        ).innerHTML = `<p>Current size of a-tag: ${linkfontSize}</p>`;
+
+        document.getElementById(
+          "font-size-display"
+        ).innerHTML = `<p>Current size of p-tag: ${fontSize}</p>`;
+
+        document.getElementById(
+          "h1-size-display"
+        ).innerHTML = `<p>Current size of h1-tag: ${h1fontSize}</p>`;
+      }
+
+      // Update font size and padding on load and on resize
+      window.addEventListener("load", () => {
+        updateFontSize();
+      });
+      window.addEventListener("resize", () => {
+        updateFontSize();
+      });
+    </script>
+  </body>
+</html>

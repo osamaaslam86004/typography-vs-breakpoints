@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluid Typography vs Breakpoints</title>
+    <style>
+      /* General Reset */
+      /**
+       * Resets the default styles for the body element.
+       */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 2rem;
+      }
+
+      /* Other styles... */
+
+      /* Fluid typography with small differences (ineffective example) */
+      /**
+       * Applies fluid typography to the paragraph elements with class 'fluid-body-text'.
+       * The font size changes between 1rem and 1.2rem based on the viewport width.
+       */
+      .fluid-body-text {
+        font-size: clamp(1rem, 1.1vw, 1.2rem);
+        border: 1px solid red;
+        padding: 1rem;
+      }
+
+      /* Regular responsive typography with breakpoints (effective example) */
+      /**
+       * Applies regular responsive typography to the paragraph elements with 
+       class 'fixed-body-text'.
+       * The font size changes based on the viewport width, with breakpoints 
+       at 768px and 1024px
+       */
+      .fixed-body-text {
+        font-size: 1rem; /* Default font size */
+        border: 1px solid green;
+        padding: 1rem;
+      }
+
+      /* Breakpoints for better control */
+      /**
+       * Defines breakpoints for the 'fixed-body-text' class.
+       * The font size changes to 1.1rem at a viewport width of 768px and 1.2rem at 1024px.
+       */
+      @media (min-width: 768px) {
+        .fixed-body-text {
+          font-size: 1.1rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .fixed-body-text {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Fluid Typography vs Breakpoints
+      <a
+        href="https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/"
+        target="_blank"
+      >
+        Read Recommendation
+      </a>
+    </h1>
+
+    <div class="example">
+      <h2>Case: Fluid Typography (Fails for Body Text)</h2>
+      <p class="fluid-body-text">
+        This paragraph uses fluid typography with a small range (1rem to 1.2rem). Resize the
+        browser window, and you'll notice that the size change is minimal and ineffective,
+        leading to negligible visual improvement.
+        <a
+          href="https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/"
+          target="_blank"
+        >
+          Read Recommendation
+        </a>
+      </p>
+    </div>
+
+    <div class="example">
+      <h2>Fix: Breakpoints for Body Text</h2>
+      <p class="fixed-body-text">
+        This paragraph uses regular responsive typography with breakpoints. The font size
+        changes noticeably at specific viewport widths (768px and 1024px), ensuring readability
+        and consistency across different devices.
+        <a
+          href="https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/"
+          target="_blank"
+        >
+          Read Recommendation
+        </a>
+      </p>
+    </div>
+  </body>
+</html>
